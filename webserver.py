@@ -14,6 +14,15 @@ class WebServerHandler(BaseHTTPRequestHandler):
             self.wfile.write(message.encode(encoding='UTF-8'))  #need to convert to byte stream to work in python3
             print (message)
             return
+        if self.path.endswith("/hola"):
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            message = ""
+            message += "<html><body> &#161 Hola ! <a href= '/hello' > Back to hello <a/> </body></html>"
+            self.wfile.write(message.encode(encoding='UTF-8'))
+            print (message)
+            return
         else:
             # here if path was not correct
             self.send_error(404, 'File Not Found: %s' % self.path)
